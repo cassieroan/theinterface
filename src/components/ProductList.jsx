@@ -13,7 +13,7 @@ const ProductList = () => {
         // Extracting relevant data from the API response
         const extractedData = data.tokens.map((token) => ({
           inscriptionNumber: token.inscriptionNumber,
-          contentURI: token.contentURI,
+          collection_page_img_url: token.meta.collection_page_img_url,
           listedPrice: token.listedPrice,
         }));
         setProducts(extractedData);
@@ -28,18 +28,17 @@ const ProductList = () => {
   return (
     <div>
       <h1 className="text-3xl font-semibold mb-6">Product Gallery</h1>
-      <i className="text-3xl font-semibold mb-6">
-        Gathered on 3/27/2024 at 3:30pm
-      </i>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product, index) => (
           <div
             key={index}
             className="bg-white rounded-lg overflow-hidden shadow-md"
           >
-            <img
-              src={product.contentURI}
-              alt={`Product ${index + 1}`}
+            <iframe
+              title={`Product ${index + 1} - Inscription Number: ${
+                product.inscriptionNumber
+              }`}
+              src={product.collection_page_img_url}
               className="w-full h-56 object-cover"
             />
             <div className="p-4">
@@ -47,7 +46,7 @@ const ProductList = () => {
                 Inscription Number: {product.inscriptionNumber}
               </h3>
               <p className="text-gray-700">
-                Listed Price: ${product.listedPrice}
+                Listed Price: 0.{product.listedPrice} BTC
               </p>
             </div>
           </div>
